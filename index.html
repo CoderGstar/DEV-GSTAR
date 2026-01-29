@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Developer Portfolio – Apps & Websites</title>
+
+  <!-- GOOGLE FONTS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- FONT AWESOME -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+  />
+
+  <style>
+    :root{
+      --green:#1fa64a;
+      --green-dark:#15803d;
+      --green-light:#e8f7ee;
+      --white:#ffffff;
+      --gray:#f3f4f6;
+      --text:#1f2937;
+      --shadow:0 10px 25px rgba(0,0,0,.08);
+      --shadow-hover:0 15px 35px rgba(0,0,0,.15);
+      --radius:18px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family:'Poppins',sans-serif;
+      background:linear-gradient(180deg,var(--green) 0%, var(--green-light) 60%);
+      color:var(--text);
+      overflow-x:hidden;
+    }
+    a{text-decoration:none;color:inherit}
+
+    /* ================= ENHANCED LOADER ================= */
+    #loader{
+      position:fixed;
+      inset:0;
+      background:linear-gradient(135deg, var(--green), #2ecc71);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-direction: column;
+      z-index:9999;
+      transition:opacity .8s ease, visibility .8s ease;
+    }
+    #loader.hidden{
+      opacity:0;
+      visibility:hidden;
+    }
+    .loader-logo{
+      font-size: 42px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 2px;
+      margin-bottom: 20px;
+      text-align: center;
+    }
+    .logo-icon {
+      font-size: 60px;
+      margin-bottom: 15px;
+      animation: spin 2s linear infinite;
+    }
+    .loader-text {
+      color: rgba(255,255,255,0.9);
+      font-size: 14px;
+      margin-top: 10px;
+      text-align: center;
+    }
+    .loading-bar {
+      width: 200px;
+      height: 4px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 2px;
+      margin-top: 30px;
+      overflow: hidden;
+    }
+    .loading-progress {
+      height: 100%;
+      width: 0%;
+      background: white;
+      border-radius: 2px;
+      animation: loadProgress 3s ease-in-out;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    @keyframes loadProgress {
+      0% { width: 0%; }
+      100% { width: 100%; }
+    }
+
+    /* ================= HEADER ================= */
+    header{
+      position:sticky;top:0;z-index:100;
+      background:linear-gradient(135deg,var(--green),#2ecc71);
+      color:var(--white);
+      padding:16px 18px 22px;
+      border-bottom-left-radius:22px;
+      border-bottom-right-radius:22px;
+    }
+    .header-top{
+      display:flex;align-items:center;justify-content:space-between;
+      margin-bottom:14px;
+    }
+    .menu{font-size:26px;cursor:pointer;transition:transform 0.3s ease;}
+    .menu:hover {
+      transform: scale(1.1);
+    }
+    .brand{font-weight:600;font-size:20px}
+    .profile{
+      width:38px;height:38px;border-radius:50%;
+      background:rgba(255,255,255,.25);
+      display:flex;align-items:center;justify-content:center;
+    }
+    .hero h1{font-size:22px;font-weight:600;margin-bottom:6px}
+    .hero p{font-size:14px;opacity:.95}
+
+    /* ================= SLIDER ================= */
+    .slider{
+      margin:20px auto 20px;
+      overflow:hidden;
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      background:#000;
+      max-width:1100px;
+    }
+    .slides{display:flex;transition:transform .6s ease}
+    .slide{min-width:100%;position:relative}
+    .slide img{
+      width:100%;height:220px;object-fit:cover;opacity:.9;
+    }
+    .overlay{
+      position:absolute;inset:0;
+      display:flex;flex-direction:column;justify-content:flex-end;
+      padding:18px;color:#fff;
+      background:linear-gradient(180deg,transparent,rgba(0,0,0,.55));
+    }
+
+    main{
+      background:var(--gray);
+      margin-top:-14px;
+      border-top-left-radius:28px;
+      border-top-right-radius:28px;
+      padding:22px 16px 40px;
+    }
+
+    .section-title{
+      font-weight:600;
+      font-size:18px;
+      margin:14px 0;
+    }
+
+    .cards{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+      gap:16px;
+    }
+    .card{
+      background:#fff;
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+    }
+    .card-img {
+      width:100%;
+      height:130px;
+      object-fit:cover;
+    }
+    .card-body{
+      padding:14px;
+      display:flex;
+      flex-direction:column;
+      flex-grow: 1;
+    }
+    .card-body h4{
+      font-size:15px;
+      margin-bottom:6px;
+      color: var(--text);
+    }
+    .card-body p{
+      font-size:13px;
+      opacity:.85;
+      flex:1;
+      margin-bottom: 10px;
+    }
+    .card-body button{
+      margin-top:12px;
+      border:none;
+      border-radius:14px;
+      background:linear-gradient(135deg,var(--green),#2ecc71);
+      color:#fff;
+      padding:10px;
+      cursor:pointer;
+      font-weight: 500;
+    }
+
+    /* ================= EXTRA BOTTOM FEATURES ================= */
+    .extra{
+      margin-top:36px;
+    }
+    .why{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+      gap:14px;
+    }
+    .why div{
+      background:#fff;
+      padding:16px;
+      border-radius:16px;
+      box-shadow:var(--shadow);
+      font-size:13px;
+      text-align:center;
+      font-weight:500;
+    }
+
+    .tech{
+      margin-top:30px;
+      text-align:center;
+    }
+    .tech i{
+      font-size:28px;
+      margin:10px;
+      color:var(--green-dark);
+    }
+
+    .cta{
+      margin-top:34px;
+      background:linear-gradient(135deg,var(--green),#2ecc71);
+      color:#fff;
+      border-radius:22px;
+      padding:26px 20px;
+      text-align:center;
+    }
+    .cta button{
+      margin-top:14px;
+      background:#fff;
+      color:var(--green-dark);
+      border:none;
+      padding:12px 20px;
+      border-radius:20px;
+      font-weight:600;
+      cursor:pointer;
+    }
+
+    footer{
+      text-align:center;
+      font-size:13px;
+      padding:26px 16px;
+      color:#4b5563;
+      background: var(--gray);
+      border-top: 1px solid rgba(0,0,0,0.1);
+    }
+
+    /* ================= SLIDE-UP MENU ================= */
+    .bottom-menu{
+      position:fixed;
+      left:0;right:0;bottom:-100%;
+      background:linear-gradient(135deg,var(--green),#2ecc71);
+      border-top-left-radius:26px;
+      border-top-right-radius:26px;
+      padding:16px 20px 26px;
+      transition:bottom .4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      z-index:200;
+      box-shadow: 0 -5px 25px rgba(0,0,0,0.15);
+    }
+    .bottom-menu.active{bottom:0}
+    .menu-handle{
+      width:46px;height:5px;
+      background:rgba(255,255,255,.6);
+      border-radius:10px;
+      margin:0 auto 18px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .menu-handle:hover {
+      background: rgba(255,255,255,.9);
+    }
+    .menu-header {
+      text-align: center;
+      color: white;
+      font-weight: 600;
+      margin-bottom: 20px;
+      font-size: 16px;
+      letter-spacing: 0.5px;
+    }
+    .menu-items{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:16px;
+      text-align:center;
+    }
+    .menu-item{
+      background:rgba(255,255,255,.18);
+      border-radius:18px;
+      padding:14px 6px;
+      color:#fff;
+      font-size:13px;
+      display:flex;
+      flex-direction:column;
+      gap:6px;
+      align-items:center;
+      transition: all 0.3s ease;
+    }
+    .menu-item:hover {
+      background: rgba(255,255,255,.3);
+      transform: translateY(-3px);
+    }
+    .menu-item i{
+      font-size:22px;
+    }
+  </style>
+</head>
+
+<body>
+
+<!-- ENHANCED LOADER -->
+<div id="loader">
+  <div class="logo-icon">&lt;/&gt;</div>
+  <div class="loader-logo">DEV GSTAR</div>
+  <div class="loader-text">Loading Professional Portfolio...</div>
+  <div class="loading-bar">
+    <div class="loading-progress"></div>
+  </div>
+</div>
+
+<header>
+  <div class="header-top">
+    <div class="menu" onclick="toggleMenu()">☰</div>
+    <div class="brand">Dev GSTAR</div>
+    <div class="profile">👤</div>
+  </div>
+  <div class="hero">
+    <h1>We Build Powerful Websites & Apps</h1>
+    <p>High-converting digital products for businesses & organizations</p>
+  </div>
+</header>
+
+<!-- SLIDE-UP CONTACT MENU -->
+<div class="bottom-menu" id="bottomMenu">
+  <div class="menu-handle" onclick="toggleMenu()"></div>
+  <div class="menu-header">REACH US ON</div>
+  <div class="menu-items">
+    <a href="https://wa.me/2347086926204" target="_blank" class="menu-item">
+      <i class="fab fa-whatsapp"></i><span>WhatsApp</span>
+    </a>
+    <a href="mailto:justicegideon12@gmail.com" class="menu-item">
+      <i class="fas fa-envelope"></i><span>Email</span>
+    </a>
+    <a href="https://www.facebook.com" target="_blank" class="menu-item">
+      <i class="fab fa-facebook-f"></i><span>Facebook</span>
+    </a>
+    <a href="https://www.tiktok.com/@gstarnkem550" target="_blank" class="menu-item">
+      <i class="fab fa-tiktok"></i><span>TikTok</span>
+    </a>
+  </div>
+</div>
+
+<div class="slider">
+  <div class="slides" id="slides">
+    <div class="slide">
+      <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c">
+      <div class="overlay"><h3>Modern Web Platforms</h3><span>Fast • Secure • Scalable</span></div>
+    </div>
+    <div class="slide">
+      <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3">
+      <div class="overlay"><h3>Mobile Applications</h3><span>Android & iOS Ready</span></div>
+    </div>
+    <div class="slide">
+      <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71">
+      <div class="overlay"><h3>Business Dashboards</h3><span>Data-Driven Solutions</span></div>
+    </div>
+  </div>
+</div>
+
+<main>
+  <div class="section-title">Solutions We Build</div>
+  <div class="cards" id="solutionsContainer">
+    <!-- Solutions will be populated by JavaScript -->
+  </div>
+
+  <!-- EXTRA SECTIONS -->
+  <div class="extra">
+    <div class="section-title">Why Choose Us</div>
+    <div class="why">
+      <div>⚡ Fast Development</div>
+      <div>🔐 Secure & Scalable</div>
+      <div>📱 Mobile-First Design</div>
+      <div>💬 Direct WhatsApp Support</div>
+    </div>
+
+    <div class="tech">
+      <div class="section-title">Technologies We Use</div>
+      <i class="fab fa-html5" title="HTML5"></i>
+      <i class="fab fa-css3-alt" title="CSS3"></i>
+      <i class="fab fa-js" title="JavaScript"></i>
+      <i class="fab fa-php" title="PHP"></i>
+      <i class="fab fa-laravel" title="Laravel"></i>
+      <i class="fab fa-react" title="React"></i>
+    </div>
+
+    <div class="cta">
+      <h3>Ready to Build Your Project?</h3>
+      <p>Let's turn your idea into a powerful digital product.</p>
+      <button onclick="wa('New Project Inquiry')">Chat on WhatsApp</button>
+    </div>
+  </div>
+</main>
+
+<footer>
+  © 2026 DEV GSTAR • Professional Web & App Development
+</footer>
+
+<script>
+  /* ENHANCED LOADER */
+  window.addEventListener('load', () => {
+    // Simulate loading progress
+    const progressBar = document.querySelector('.loading-progress');
+    progressBar.style.width = '100%';
+    
+    setTimeout(() => {
+      document.getElementById('loader').classList.add('hidden');
+    }, 3000);
+  });
+
+  const bottomMenu = document.getElementById('bottomMenu');
+  let isMenuOpen = false;
+
+  function toggleMenu(){
+    isMenuOpen = !isMenuOpen;
+    bottomMenu.classList.toggle('active');
+    
+    // Change menu icon from ☰ to X when open
+    const menuIcon = document.querySelector('.menu');
+    menuIcon.textContent = isMenuOpen ? '✕' : '☰';
+  }
+
+  // Close menu when clicking the white dash at the top
+  document.querySelector('.menu-handle').addEventListener('click', toggleMenu);
+
+  // Improved touch handling for closing menu
+  let touchStartY = 0;
+  let touchCurrentY = 0;
+  let isDragging = false;
+
+  bottomMenu.addEventListener('touchstart', function(e) {
+    touchStartY = e.touches[0].clientY;
+    isDragging = true;
+  });
+
+  bottomMenu.addEventListener('touchmove', function(e) {
+    if (!isDragging) return;
+    
+    touchCurrentY = e.touches[0].clientY;
+    const deltaY = touchCurrentY - touchStartY;
+    
+    // Only allow downward swipes (to close)
+    if (deltaY > 0) {
+      // Add some resistance
+      const translateY = Math.min(deltaY * 0.5, 100);
+      bottomMenu.style.transform = `translateY(${translateY}px)`;
+      e.preventDefault();
+    }
+  });
+
+  bottomMenu.addEventListener('touchend', function(e) {
+    if (!isDragging) return;
+    
+    const deltaY = touchCurrentY - touchStartY;
+    
+    // If swiped down enough, close the menu
+    if (deltaY > 60) {
+      toggleMenu();
+    }
+    
+    // Reset transform
+    bottomMenu.style.transform = '';
+    isDragging = false;
+    touchStartY = 0;
+    touchCurrentY = 0;
+  });
+
+  /* ENHANCED SLIDER */
+  let index = 0;
+  const slides = document.getElementById('slides');
+  const totalSlides = 3;
+  
+  // Auto slide
+  const slideInterval = setInterval(() => {
+    index = (index + 1) % totalSlides;
+    slides.style.transform = `translateX(-${index * 100}%)`;
+  }, 4000);
+
+  // Pause on hover
+  slides.parentElement.addEventListener('mouseenter', () => {
+    clearInterval(slideInterval);
+  });
+  
+  slides.parentElement.addEventListener('mouseleave', () => {
+    clearInterval(slideInterval);
+    setInterval(() => {
+      index = (index + 1) % totalSlides;
+      slides.style.transform = `translateX(-${index * 100}%)`;
+    }, 4000);
+  });
+
+  // Touch swipe support
+  let touchStartX = 0;
+  slides.parentElement.addEventListener('touchstart', e => {
+    touchStartX = e.touches[0].clientX;
+    clearInterval(slideInterval);
+  });
+  
+  slides.parentElement.addEventListener('touchend', e => {
+    const touchEndX = e.changedTouches[0].clientX;
+    const swipeThreshold = 50;
+    
+    if (touchStartX - touchEndX > swipeThreshold) {
+      // Swipe left - next slide
+      index = (index + 1) % totalSlides;
+    } else if (touchEndX - touchStartX > swipeThreshold) {
+      // Swipe right - previous slide
+      index = (index - 1 + totalSlides) % totalSlides;
+    }
+    
+    slides.style.transform = `translateX(-${index * 100}%)`;
+    
+    // Restart auto slide
+    clearInterval(slideInterval);
+    setInterval(() => {
+      index = (index + 1) % totalSlides;
+      slides.style.transform = `translateX(-${index * 100}%)`;
+    }, 4000);
+  });
+
+  function wa(name){
+    const msg = encodeURIComponent(`Hello, I'm interested in your ${name} solution.`);
+    window.open(`https://wa.me/2347086926204?text=${msg}`, '_blank');
+  }
+
+  // ====== SOLUTIONS DATA WITH COMPLETE IMAGES ======
+  const solutionsData = [
+    {
+      name: "Trading Platform",
+      description: "Build a Secure, fast, and scalable trading systems built for growth.",
+      image: "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=400&h=300&fit=crop",
+    },
+    {
+      name: "E-Commerce Platform",
+      description: "Build a Sell products online with smart checkout and admin dashboard.",
+      image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&h=300&fit=crop",
+    },
+    {
+      name: "Clothing Store Website",
+      description: "Build a Fashion-focused designs that turn visitors into buyers.",
+      image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&h=300&fit=crop",
+    },
+    {
+      name: "Restaurant Website",
+      description: "Build an Online menus, reservations, and delivery-ready platforms.",
+      image: "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&h=300&fit=crop",
+    },
+    {
+      name: "Hotel Booking Website",
+      description: "Build a Professional booking systems with payment integration.",
+      image: "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop",
+    },
+    {
+      name: "Delivery App",
+      description: "Real-time delivery tracking and vendor dashboards.",
+      image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=400&h=300&fit=crop",
+    },
+    {
+      name: "Church Streaming App",
+      description: "Build a Live streaming, sermons, donations, and event management.",
+      image: "church.jpeg",
+    },
+    {
+      name: "School Portal",
+      description: "Build a Student dashboards, results, fees, and admin systems.",
+      image: "school.jpeg",
+    },
+    {
+      name: "Online Banking App",
+      description: "Build a Secure fintech platforms with modern user experience.",
+      image: "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=400&h=300&fit=crop",
+    },
+    {
+      name: "Advertising App",
+      description: "Build a Run ads, track performance, and grow brands digitally.",
+      image: "ads.jpeg",
+    }
+  ];
+
+  // ====== POPULATE SOLUTIONS CONTAINER ======
+  const solutionsContainer = document.getElementById('solutionsContainer');
+  
+  solutionsData.forEach(solution => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    
+    card.innerHTML = `
+      <img src="${solution.image}" alt="${solution.name}" class="card-img">
+      <div class="card-body">
+        <h4>${solution.name}</h4>
+        <p>${solution.description}</p>
+        <button onclick="wa('${solution.name}')">BUILD NOW</button>
+      </div>
+    `;
+    
+    solutionsContainer.appendChild(card);
+  });
+</script>
+
+</body>
+</html>
